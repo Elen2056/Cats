@@ -26,14 +26,29 @@ def load_image(url):
         print(f"Ошибка при загрузке изображения: {e}")
         return None
 
-def set_image():
-    # Вызываем функцию для загрузки изображения
-    img = load_image(url)
 
+def open_new_window():
+    img = load_image(url)
     if img:
+        # Создаем новое вторичное окно
+        new_window = Toplevel()
+        new_window.title("Картинка с котиком")
+        new_window.geometry("600x480")
+
+        # Добавляем изображение в новое окно
+        label = Label(new_window, image=img)
+        label.image = img  # Сохраняем ссылку на изображение
+        label.pack()
+
+# def set_image():
+    # Вызываем функцию для загрузки изображения
+#    img = load_image(url)
+
+#    if img:
         # Устанавливаем изображение в метку
-        label.config(image=img)
-        label.image = img   #Сохраняем ссылку на изображение
+#        label.config(image=img)
+#        label.image = img   #Сохраняем ссылку на изображение
+
 def exit():
     window.destroy()
 
@@ -53,14 +68,14 @@ window.config(menu=menu_bar)
 # Добавляем пункты меню
 file_menu = Menu(menu_bar, tearoff=0)
 menu_bar.add_cascade(label="Файл", menu=file_menu)
-file_menu.add_command(label="Загрузить фото", command=set_image)
+file_menu.add_command(label="Загрузить фото", command=open_new_window)
 file_menu.add_separator()
 file_menu.add_command(label="Выход", command=exit)
 
 
 # Добавляем кнопку для обновления изображения
-#update_button = Button(text="Обновить", command=set_image)
-#update_button.pack()
+# update_button = Button(text="Обновить", command=set_image)
+# update_button.pack()
 
 
 url = 'https://cataas.com/cat'
@@ -73,7 +88,7 @@ if img:
     label.image = img
 
 # Вызываем функцию для установки изображения в метку
-set_image()
+# set_image()
 
 window.mainloop()
 
